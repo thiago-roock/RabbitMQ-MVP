@@ -35,7 +35,7 @@
 {
   "RabbitMQ_Broker": "http://127.0.0.1:15672",
   "RabbitMQ_Topic": "<nome_topico>",
-  "TotalVendas": "10"
+  "TotalVotos": "10"
 }
 ```
 ### 1. Simulador de votos:
