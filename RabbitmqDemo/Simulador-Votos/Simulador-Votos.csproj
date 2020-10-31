@@ -6,6 +6,7 @@
     <ProjectGuid>{421CC2C4-A711-4F35-B4B5-2900AFE8D2A2}</ProjectGuid>
   </PropertyGroup>
     <ItemGroup>
+      <PackageReference Include="RabbitMQ.Client" Version="6.2.1" />
       <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.4" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.4" />
