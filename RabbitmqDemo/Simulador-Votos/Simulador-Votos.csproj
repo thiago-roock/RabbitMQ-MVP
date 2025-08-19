@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>Simulador_Votos</RootNamespace>
     <ProjectGuid>{421CC2C4-A711-4F35-B4B5-2900AFE8D2A2}</ProjectGuid>
   </PropertyGroup>
     <ItemGroup>
-      <PackageReference Include="RabbitMQ.Client" Version="6.2.1" />
-      <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.4" />
-      <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.4" />
+      <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
+      <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.8" />
+      <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.8" />
     </ItemGroup>
     <ItemGroup>
       <None Update="appsettings.json">

@@ -1,36 +1,54 @@
 ﻿using System;
-using RabbitMQ.Client;
 using System.Text;
+using System.Threading.Tasks;
+using RabbitMQ.Client;
 
 namespace Simulador_Votos
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            using var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
-            
-            channel.QueueDeclare(queue: "votos",
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
-            string[] participantes = {"Thiago","Jaqueline"};
-            string message = $@"{participantes[0]}";
+            // Configura a fábrica de conexão
+            var factory = new ConnectionFactory
+            {
+                HostName = "localhost",
+                UserName = "guest",
+                Password = "guest",
+                Port = 5672
+            };
+
+            // Cria a conexão assíncrona
+            await using var connection = await factory.CreateConnectionAsync("SimuladorVotos");
+
+            // Cria o canal assíncrono
+            await using var channel = await connection.CreateChannelAsync(); // retorna IAsyncModel
+
+            // Declara a fila de forma assíncrona
+            await channel.QueueDeclareAsync(
+                queue: "votos",
+                durable: false,
+                exclusive: false,
+                autoDelete: false,
+                arguments: null);
+
+            string[] participantes = { "Thiago", "Jaqueline" };
+            string message = participantes[0];
             var body = Encoding.UTF8.GetBytes(message);
+            var properties = new BasicProperties();
 
-            channel.BasicPublish(exchange: "",
-                                 routingKey: "votos",
-                                 basicProperties: null,
-                                 body: body);
-            Console.WriteLine(" [x] enviando 1 voto em {0}", message);
-        
+            // Publica mensagem de forma assíncrona
+            await channel.BasicPublishAsync(
+                exchange: "",
+                routingKey: "votos",
+                mandatory: false,
+                basicProperties: properties,
+                body: body,
+                cancellationToken: default);
 
+            Console.WriteLine(" [x] Enviando 1 voto em {0}", message);
             Console.WriteLine(" Pressione [enter] para sair.");
             Console.ReadLine();
-    
         }
     }
 }
